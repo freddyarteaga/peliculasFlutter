@@ -62,4 +62,12 @@ class Pelicula {
     overview = json['overview'];
     releaseDate = json['release_date'];
   }
+
+  getPosterImg() {
+    if (posterPath == null) {
+      return 'https://lh3.googleusercontent.com/proxy/vo0oQE3B-IzYHvLh8ZzCAZc9MfLQ-vwMlEGLIrq9ap6tIslouGv_f8-CrQdnlWh0gCeiZEjN1466cqTpDubpp5BzVQqLagJYHhE7mLsXHbFIRso';
+    } else {
+      return 'https://image.tmdb.org/t/p/w500/$posterPath';
+    }
+  }
 }
