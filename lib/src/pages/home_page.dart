@@ -20,7 +20,8 @@ class Homepage extends StatelessWidget {
         ),
         body: Container(
             child: Column(
-          children: <Widget>[_swiperTarjetas()],
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: <Widget>[_swiperTarjetas(), _footer(context)],
         )));
   }
 
@@ -40,5 +41,26 @@ class Homepage extends StatelessWidget {
     // return CardSwiper(
     //   peliculas: [1, 2, 3, 4],
     // );
+  }
+
+  Widget _footer(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      child: Column(
+        children: <Widget>[
+          Text(
+            'Populares',
+            style: Theme.of(context).textTheme.subtitle1,
+          ),
+          FutureBuilder(
+            future: peliculasProvider.getPopulares(),
+            builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
+              snapshot.data?.forEach((element) => print(element.title));
+              return Container();
+            },
+          ),
+        ],
+      ),
+    );
   }
 }
