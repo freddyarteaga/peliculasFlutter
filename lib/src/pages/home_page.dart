@@ -8,6 +8,8 @@ class Homepage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    peliculasProvider.getPopulares();
+
     return Scaffold(
         appBar: AppBar(
           title: Text('Peliculas en Cine'),
@@ -58,8 +60,8 @@ class Homepage extends StatelessWidget {
             ),
           ),
           SizedBox(height: 5.0),
-          FutureBuilder(
-            future: peliculasProvider.getPopulares(),
+          StreamBuilder(
+            stream: peliculasProvider.popularesStream,
             builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
               // snapshot.data?.forEach((element) => print(element.title));
               // widget encargado de mostrar las peliculas de manera horizontal
@@ -68,6 +70,7 @@ class Homepage extends StatelessWidget {
               if (snapshot.hasData) {
                 return MovieHorizontal(
                   peliculas: snapshot.data,
+                  siguientePagina: peliculasProvider.getPopulares,
                 );
               } else {
                 return Center(child: CircularProgressIndicator());

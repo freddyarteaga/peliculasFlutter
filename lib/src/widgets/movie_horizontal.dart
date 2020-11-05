@@ -3,23 +3,34 @@ import 'package:peliculas/src/models/pelicula_model.dart';
 
 class MovieHorizontal extends StatelessWidget {
   final List<Pelicula> peliculas;
+  final Function siguientePagina;
 
-  MovieHorizontal({@required this.peliculas});
+  MovieHorizontal({@required this.peliculas, @required this.siguientePagina});
+
+  final _pageController = new PageController(
+    initialPage: 1,
+    viewportFraction: 0.3,
+  );
 
   @override
   Widget build(BuildContext context) {
     // necesitamos saber cual es el tamano de pantalla
     final _screenSize = MediaQuery.of(context).size;
+
+    _pageController.addListener(() {
+      if (_pageController.position.pixels >=
+          _pageController.position.maxScrollExtent - 200) {
+        siguientePagina();
+      }
+    });
+
     return Container(
         // definimos que sea el 20% de la pagina
         height: _screenSize.height * 0.3,
         // nos sirve para poder deslizar paginas o widgets(PageView)
         child: PageView(
           pageSnapping: false,
-          controller: PageController(
-            initialPage: 1,
-            viewportFraction: 0.3,
-          ),
+          controller: _pageController,
           children: _tarjetas(context),
         ));
   }
