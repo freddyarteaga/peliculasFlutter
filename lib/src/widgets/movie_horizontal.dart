@@ -39,13 +39,17 @@ class MovieHorizontal extends StatelessWidget {
   }
 
   Widget _tarjeta(BuildContext context, Pelicula pelicula) {
+    //se envia una referencia modificada propia del modelo a una nueva propiedad
+    // para que no entren en conflicto con las otras peliculas del horizotal
+    pelicula.uniqueId = '${pelicula.id}-poster';
+
     final tarjeta = Container(
       margin: EdgeInsets.only(right: 15.0),
       child: Column(
         children: <Widget>[
           Hero(
             //id unico que debe identificar esta tarjeta desde el punto a donde va
-            tag: pelicula.id,
+            tag: pelicula.uniqueId,
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20.0),
               child: FadeInImage(
