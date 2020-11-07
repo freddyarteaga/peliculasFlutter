@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 
+import 'package:peliculas/src/models/actores_model.dart';
 import 'package:peliculas/src/models/pelicula_model.dart';
 
 class PeliculasProvider {
@@ -64,5 +65,22 @@ class PeliculasProvider {
     popularesSink(_populares);
     _cargando = false;
     return resp;
+  }
+
+  // utilizamos un Future y no un stream porque la cantidad de actores
+  // va ser finito, pueden ser 20 y no va pasar mas de eso
+  Future<List<Actor>> getCast(String peliId) async {
+    // creamos la URL
+    final url = Uri.https(_url, '3/movoie/$peliId/credits',
+        {'api_key': _apikey, 'language': _language});
+    // ejecutamos el http de la URL el cual es almacenado e la respuesta
+    // con el await espero la respuesta
+    final resp = await http.get(url);
+    // almaceno la repsuesta del mapa
+    final decodedData = json.decode(resp.body);
+    // mandamos el mapa en su propiedad de cast
+    final cast = new Cast.fromJsonList(decodedData['cast']);
+
+    return cast.actores;
   }
 }
