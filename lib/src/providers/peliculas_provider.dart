@@ -71,7 +71,7 @@ class PeliculasProvider {
   // va ser finito, pueden ser 20 y no va pasar mas de eso
   Future<List<Actor>> getCast(String peliId) async {
     // creamos la URL
-    final url = Uri.https(_url, '3/movoie/$peliId/credits',
+    final url = Uri.https(_url, '3/movie/$peliId/credits',
         {'api_key': _apikey, 'language': _language});
     // ejecutamos el http de la URL el cual es almacenado e la respuesta
     // con el await espero la respuesta
