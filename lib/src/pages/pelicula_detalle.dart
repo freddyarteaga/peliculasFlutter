@@ -39,10 +39,10 @@ class PeliculaDetalle extends StatelessWidget {
           pelicula.title,
           style: TextStyle(color: Colors.white, fontSize: 16.0),
         ),
-        background: Image(
+        background: FadeInImage(
           image: NetworkImage(pelicula.getBackgroundImg()),
-          // placeholder: AssetImage('assets/img/loading.gif'),
-          // fadeInDuration: Duration(microseconds: 1000),
+          placeholder: AssetImage('assets/img/loading.gif'),
+          fadeInDuration: Duration(microseconds: 1500),
           fit: BoxFit.cover,
         ),
       ),
@@ -54,11 +54,15 @@ class PeliculaDetalle extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 20.0),
         child: Row(
           children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(20.0),
-              child: Image(
-                image: NetworkImage(pelicula.getPosterImg()),
-                height: 150.0,
+            Hero(
+              // mismo tag de donde parte la img anterior
+              tag: pelicula.id,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(20.0),
+                child: Image(
+                  image: NetworkImage(pelicula.getPosterImg()),
+                  height: 150.0,
+                ),
               ),
             ),
             SizedBox(width: 20.0),
