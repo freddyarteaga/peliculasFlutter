@@ -20,7 +20,9 @@ class Homepage extends StatelessWidget {
               icon: Icon(Icons.search),
               onPressed: () {
                 showSearch(
-                    context: context, delegate: DataSearch(), query: 'Hola');
+                  context: context,
+                  delegate: DataSearch(),
+                );
               },
             ),
           ],
